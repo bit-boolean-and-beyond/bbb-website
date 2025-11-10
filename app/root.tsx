@@ -2,19 +2,18 @@ import {
   isRouteErrorResponse,
   Links,
   Meta,
-  Outlet,
-  Routes,
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
-import { BrowserRouter as Router, Link } from "react-router-dom";
-
-import type { Route } from "./+types/root";
-import "./app.css";
 import { useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import "./app.css";
+import type { Route } from "./+types/root";
+
+import DarkModeToggle from "./components/DarkModeToggle";
+import { lazy, Suspense } from "react";
+const HomeSection = lazy(() => import("./pages/Home"));
+const AboutSection = lazy(() => import("./pages/About"));
+const ServicesSection = lazy(() => import("./pages/Services"));
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -59,10 +58,14 @@ export default function App() {
 
   // State to track the current theme (light or dark)
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Retrieve the saved theme from localStorage or default to false (light mode)
-    const savedTheme = localStorage.getItem("isDarkMode");
-    return savedTheme === "true";
+    // Retrieve the saved theme from localStorage or default to light mode
+    return localStorage.getItem("isDarkMode") === "true";
   });
+
+  // useEffect to apply the theme on initial load
+  useEffect(() => {
+    document.documentElement.className = isDarkMode ? "dark" : "light";
+  }, [isDarkMode]);
 
   // useEffect to set up an IntersectionObserver for tracking which section is visible
   useEffect(() => {
@@ -98,43 +101,19 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Function to toggle the theme
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      // Save the new theme to localStorage
-      localStorage.setItem("isDarkMode", newMode.toString());
-      return newMode;
-    });
-  };
-
-  useEffect(() => {
-    // Apply the saved theme on initial load
-    document.body.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
-
   // Render the main content
   return (
     <main
       ref={containerRef} // Attach the ref to the scrollable container
-      className={`h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth ${isDarkMode ? "dark" : "light"}`} // Tailwind classes for styling
+      className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth" // Tailwind classes for styling
       aria-label="Scrollable sections container"
     >
       {/* Dark mode toggle button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded shadow-md hover:bg-gray-700"
-        aria-label="Toggle dark mode"
-      >
-        {isDarkMode ?
-          <><FontAwesomeIcon icon={faSun} /><br /><p>Light Mode</p></> : 
-          <><FontAwesomeIcon icon={faMoon} /><br /><p>Dark Mode</p></>
-        }
-      </button>
+      <DarkModeToggle isDarkMode={isDarkMode} onThemeChange={setIsDarkMode} />
 
       {/* Navigation buttons on the right side */}
       <nav className="fixed right-4 top-1/2 z-50 transform -translate-y-1/2 flex flex-col gap-3">
-        {["Home", "About Us", "Services", "Contact Us", "Blog"].map((_, i) => (
+        {["Home", "About Us", "Services"].map((_, i) => (
           <button
             key={i}
             onClick={() => scrollTo(i)} // Scroll to the corresponding section when clicked
@@ -146,79 +125,20 @@ export default function App() {
         ))}
       </nav>
 
-      {/* Render each section individually */}
-      <section
-        ref={(el) => {
-          if (el) sectionRefs.current[0] = el as HTMLDivElement; // Store the DOM node in sectionRefs
-        }}
-        className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
-      >
-        <div className="text-center px-6">
-          <h1 className="text-5xl md:text-6xl mb-4">Home</h1>
-          <p className="max-w-xl mx-auto opacity-90">
-            Welcome to the Home section. Use the side nav or scroll to snap between sections.
-          </p>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => {
-          if (el) sectionRefs.current[1] = el as HTMLDivElement;
-        }}
-        className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
-      >
-        <div className="text-center px-6">
-          <h1 className="text-5xl md:text-6xl mb-4">About Us</h1>
-          <p className="max-w-xl mx-auto opacity-90">
-            Learn more about us in this section. Use the side nav or scroll to snap between sections.
-          </p>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => {
-          if (el) sectionRefs.current[2] = el as HTMLDivElement;
-        }}
-        className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
-      >
-        <div className="text-center px-6">
-          <h1 className="text-5xl md:text-6xl mb-4">Services</h1>
-          <p className="max-w-xl mx-auto opacity-90">
-            Explore our services here. Use the side nav or scroll to snap between sections.
-          </p>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => {
-          if (el) sectionRefs.current[3] = el as HTMLDivElement;
-        }}
-        className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
-      >
-        <div className="text-center px-6">
-          <h1 className="text-5xl md:text-6xl mb-4">Contact Us</h1>
-          <p className="max-w-xl mx-auto opacity-90">
-            Get in touch with us in this section. Use the side nav or scroll to snap between sections.
-          </p>
-        </div>
-      </section>
-
-      <section
-        ref={(el) => {
-          if (el) sectionRefs.current[4] = el as HTMLDivElement;
-        }}
-        className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}
-      >
-        <div className="text-center px-6">
-          <h1 className="text-5xl md:text-6xl mb-4">Blog</h1>
-          <p className="max-w-xl mx-auto opacity-90">
-            Check out our blog posts here. Use the side nav or scroll to snap between sections.
-          </p>
-        </div>
-      </section>
+      {/* Render each section lazily with a loading screen */}
+      {/* <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-screen">
+            <h1>Loading...</h1>
+          </div>
+        }
+      > */}
+        <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el; }} isDark={isDarkMode} />
+        <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el; }} isDark={isDarkMode} />
+        <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el; }} isDark={isDarkMode} />
+      {/* </Suspense> */}
     </main>
   );
-
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
