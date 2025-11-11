@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark }, ref) => (
   <section
     ref={ref}
-    className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
+    className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
       isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
     }`}
   >
