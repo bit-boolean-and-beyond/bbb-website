@@ -69,36 +69,72 @@ export default function App() {
 
   // useEffect to set up an IntersectionObserver for tracking which section is visible
   useEffect(() => {
-    // Get the scrollable container
     const root = containerRef.current;
-    console.log("Container Ref:", root); // Debugging log for containerRef
     if (!root) return;
 
-    // Create an IntersectionObserver to monitor visibility of sections
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Check if the section is intersecting (visible)
-          if (entry.isIntersecting) {
-            // Find the index of the visible section and update the active state
-            const idx = sectionRefs.current.indexOf(entry.target as HTMLDivElement);
-            console.log("Observed entry:", entry.target, "Index:", idx); // Debugging log for observed entries
-            if (idx >= 0) setActive(idx);
+    const calculateViewportOccupancy = () => {
+      const viewportHeight = window.innerHeight;
+      let maxOccupancy = 0;
+      let activeSection = 0;
+
+      sectionRefs.current.forEach((section, index) => {
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+          const occupancy = Math.max(0, visibleHeight) / viewportHeight;
+
+          if (occupancy > maxOccupancy) {
+            maxOccupancy = occupancy;
+            activeSection = index;
           }
-        });
-      },
-      { root, threshold: 0.6 } // Options: use the container as the root and 60% visibility threshold
-    );
+        }
+      });
 
-    // Observe each section element
-    sectionRefs.current.forEach((el, index) => {
-      console.log(`Observing section ${index}:`, el); // Debugging log for each section
-      if (el) observer.observe(el);
-    });
+      setActive(activeSection);
+    };
 
-    // Cleanup: disconnect the observer when the component unmounts
-    return () => observer.disconnect();
+    // Attach event listeners for scroll and resize
+    root.addEventListener("scroll", calculateViewportOccupancy);
+    window.addEventListener("resize", calculateViewportOccupancy);
+
+    // Initial calculation
+    calculateViewportOccupancy();
+
+    // Cleanup event listeners on unmount
+    return () => {
+      root.removeEventListener("scroll", calculateViewportOccupancy);
+      window.removeEventListener("resize", calculateViewportOccupancy);
+    };
   }, []);
+
+  // Add dynamic snapping behavior based on scroll direction
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    let lastScrollTop = 0;
+
+    const handleScroll = () => {
+      const scrollTop = root.scrollTop;
+      const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
+      lastScrollTop = scrollTop;
+
+      sectionRefs.current.forEach((section, index) => {
+        if (section) {
+          section.style.scrollSnapAlign = scrollDirection === "down" ? "start" : "end";
+        }
+      });
+    };
+
+    // Attach scroll event listener
+    root.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener on unmount
+    return () => {
+      root.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
 
   // Function to scroll to a specific section by index
   const scrollTo = (index: number) => {
