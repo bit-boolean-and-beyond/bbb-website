@@ -10,10 +10,10 @@ import "./app.css";
 import type { Route } from "./+types/root";
 
 import DarkModeToggle from "./components/DarkModeToggle";
-import { lazy, Suspense } from "react";
-const HomeSection = lazy(() => import("./pages/Home"));
-const AboutSection = lazy(() => import("./pages/About"));
-const ServicesSection = lazy(() => import("./pages/Services"));
+import NavButtons from "./components/NavButtons";
+import HomeSection from "./pages/Home";
+import AboutSection from "./pages/About";
+import ServicesSection from "./pages/Services";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,32 +47,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // Ref to the scrollable container (the <main> element)
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  // Ref to store DOM nodes for each section
-  const sectionRefs = useRef<HTMLDivElement[]>([]);
-
-  // State to track the currently active section
+  const sectionRefs = useRef<HTMLDivElement[]>(new Array(3));
   const [active, setActive] = useState(0);
-
-  // State to track the current theme (light or dark)
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Retrieve the saved theme from localStorage or default to light mode
-    return localStorage.getItem("isDarkMode") === "true";
+    return localStorage.getItem("isDarkMode") === "true"; // allows saving preference
   });
 
-  // useEffect to apply the theme on initial load
-  useEffect(() => {
-    document.documentElement.className = isDarkMode ? "dark" : "light";
-  }, [isDarkMode]);
-
-  // useEffect to set up an IntersectionObserver for tracking which section is visible
+  // set active section based on which has the most visibility in viewport
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
 
-    const calculateViewportOccupancy = () => {
+    const setActiveState = () => {
       const viewportHeight = window.innerHeight;
       let maxOccupancy = 0;
       let activeSection = 0;
@@ -90,24 +77,23 @@ export default function App() {
         }
       });
 
-      setActive(activeSection);
+            setActive(activeSection);
     };
 
-    // Attach event listeners for scroll and resize
-    root.addEventListener("scroll", calculateViewportOccupancy);
-    window.addEventListener("resize", calculateViewportOccupancy);
+    root.addEventListener("scroll", setActiveState);
+    window.addEventListener("resize", setActiveState);
 
     // Initial calculation
-    calculateViewportOccupancy();
+    setActiveState();
 
-    // Cleanup event listeners on unmount
+    // Cleanup
     return () => {
-      root.removeEventListener("scroll", calculateViewportOccupancy);
-      window.removeEventListener("resize", calculateViewportOccupancy);
+      root.removeEventListener("scroll", setActiveState);
+      window.removeEventListener("resize", setActiveState);
     };
   }, []);
 
-  // Add dynamic snapping behavior based on scroll direction
+  // snap to start or end based on scroll direction
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
@@ -126,7 +112,6 @@ export default function App() {
       });
     };
 
-    // Attach scroll event listener
     root.addEventListener("scroll", handleScroll);
 
     // Cleanup event listener on unmount
@@ -135,8 +120,7 @@ export default function App() {
     };
   }, []);
 
-
-  // Function to scroll to a specific section by index
+  // scroll to section by index
   const scrollTo = (index: number) => {
     const el = sectionRefs.current[index];
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -149,35 +133,13 @@ export default function App() {
       className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth" // Tailwind classes for styling
       aria-label="Scrollable sections container"
     >
-      {/* Dark mode toggle button */}
       <DarkModeToggle isDarkMode={isDarkMode} onThemeChange={setIsDarkMode} />
 
-      {/* Navigation buttons on the right side */}
-      <nav className="fixed right-4 top-1/2 z-50 transform -translate-y-1/2 flex flex-col gap-3">
-        {["Home", "About Us", "Services"].map((_, i) => (
-          <button
-            key={i}
-            onClick={() => scrollTo(i)} // Scroll to the corresponding section when clicked
-            aria-label={`Go to section ${i + 1}`}
-            className={`w-3 h-3 rounded-full ring-2 ring-white transition-transform ${
-              active === i ? "scale-125 bg-white" : "bg-white/40"
-            }`} // Highlight the active section
-          />
-        ))}
-      </nav>
+      <NavButtons active={active} scrollTo={scrollTo} sectionCount={sectionRefs.current.length} />
 
-      {/* Render each section lazily with a loading screen */}
-      {/* <Suspense
-        fallback={
-          <div className="flex items-center justify-center h-screen">
-            <h1>Loading...</h1>
-          </div>
-        }
-      > */}
-        <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el; }} isDark={isDarkMode} />
-        <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el; }} isDark={isDarkMode} />
-        <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el; }} isDark={isDarkMode} />
-      {/* </Suspense> */}
+      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }} isDark={isDarkMode} />
+      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }} isDark={isDarkMode} />
+      <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} isDark={isDarkMode} />
     </main>
   );
 }
