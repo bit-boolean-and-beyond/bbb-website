@@ -20,7 +20,7 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
       <div className="text-center px-6">
         {/* Top section */}
         <div>
-          <h1 className="md:text-6xl mb-4">Bit Boolean & Beyond</h1>
+          <h1 className="md:text-6xl mb-4">Bit Boolean & Beyond Consulting LLC</h1>
           <h3 className="md:text-3xl mb-6">Bespoke tech solutions so you can focus on the rest of your business</h3>
         </div>
         <p className="text-xl">We help everyone from early stage startups to enterprises to cost effectively streamline their software delivery and cloud operations.</p>
