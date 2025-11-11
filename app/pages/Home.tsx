@@ -11,7 +11,8 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
 
   return (
     <section
-      ref={ref}
+      id="home-section"
+      // ref={ref}
       className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
         isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
@@ -19,10 +20,10 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
       <div className="text-center px-6">
         {/* Top section */}
         <div>
-          <h1 className="text-5xl md:text-6xl mb-4">Bit Boolean & Beyond</h1>
-          <h3 className="text-2xl md:text-3xl mb-6">Bespoke tech solutions so you can focus on the rest of your business</h3>
+          <h1 className="md:text-6xl mb-4">Bit Boolean & Beyond</h1>
+          <h3 className="md:text-3xl mb-6">Bespoke tech solutions so you can focus on the rest of your business</h3>
         </div>
-        <p>We help everyone from early stage startups to enterprises to cost effectively streamline their software delivery and cloud operations.</p>
+        <p className="text-xl">We help everyone from early stage startups to enterprises to cost effectively streamline their software delivery and cloud operations.</p>
         { /* Clickable tiles that flip over with more info on the back */ }
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
@@ -63,10 +64,10 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
               >
                 {/* Front side */}
                 <section className="absolute flex h-full w-full flex-col justify-center gap-y-5 bg-white px-2 py-10 text-black backface-hidden rounded-lg">
-                  <h2 className="text-xl font-bold">{card.title}</h2>
+                  <h2 className="text-2xl font-bold">{card.title}</h2>
                 </section>
                 {/* Back side */}
-                <section className="absolute flex h-full w-full rotate-y-180 flex-col justify-center gap-y-5 bg-white px-2 py-10 text-black backface-hidden rounded-lg">
+                <section className="absolute flex h-full w-full rotate-y-180 flex-col justify-center gap-y-5 bg-white px-2 py-10 text-black text-lg backface-hidden rounded-lg">
                   <p className="text-center">{card.description}</p>
                 </section>
               </div>

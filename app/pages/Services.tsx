@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 
 const ServicesSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark }, ref) => (
   <section
+    id="services-section"
     ref={ref}
     className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
       isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
