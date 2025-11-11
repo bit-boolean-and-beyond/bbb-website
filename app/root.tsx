@@ -71,6 +71,7 @@ export default function App() {
   useEffect(() => {
     // Get the scrollable container
     const root = containerRef.current;
+    console.log("Container Ref:", root); // Debugging log for containerRef
     if (!root) return;
 
     // Create an IntersectionObserver to monitor visibility of sections
@@ -81,6 +82,7 @@ export default function App() {
           if (entry.isIntersecting) {
             // Find the index of the visible section and update the active state
             const idx = sectionRefs.current.indexOf(entry.target as HTMLDivElement);
+            console.log("Observed entry:", entry.target, "Index:", idx); // Debugging log for observed entries
             if (idx >= 0) setActive(idx);
           }
         });
@@ -89,7 +91,10 @@ export default function App() {
     );
 
     // Observe each section element
-    sectionRefs.current.forEach((el) => el && observer.observe(el));
+    sectionRefs.current.forEach((el, index) => {
+      console.log(`Observing section ${index}:`, el); // Debugging log for each section
+      if (el) observer.observe(el);
+    });
 
     // Cleanup: disconnect the observer when the component unmounts
     return () => observer.disconnect();
