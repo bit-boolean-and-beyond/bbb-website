@@ -22,6 +22,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ isDarkMode, onThemeChan
       aria-label="Toggle dark mode"
     >
       {isDarkMode ? (
+        // TODO: Make it default dark mode. 
         <>
           <FontAwesomeIcon icon={faSun} />
           <br />

@@ -9,10 +9,18 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
     );
   };
 
+  /**
+   * TODO
+   * ***** PICK A FONT FROM GOOGLE FONTS THAT IS BESPOKE. SOMETHING BOLD AND ELEGANT
+   * ***** REMOVE THE FLIPPABLE CARDS IT SHOULD BE A DIV WIHT AN ICON AND INFO SECTION. SEE FIGMA FOR INSPO 
+   * *****
+   */
+
   return (
     <section
       id="home-section"
       // ref={ref}
+      
       className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
         isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
@@ -21,10 +29,12 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
         {/* Top section */}
         <div>
           <h1 className="md:text-6xl mb-4">Bit Boolean & Beyond</h1>
-          <h3 className="md:text-3xl mb-6">Bespoke tech solutions so you can focus on the rest of your business</h3>
+          <h3 className="md:text-3xl mb-6">Bespoke tech solutions for your business</h3>
         </div>
         <p className="text-xl">We help everyone from early stage startups to enterprises to cost effectively streamline their software delivery and cloud operations.</p>
         { /* Clickable tiles that flip over with more info on the back */ }
+        {/* // TODO: Find an icon for every one of the offerings
+        // TODO: No need for flippable card. Have it in a div w/ */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
