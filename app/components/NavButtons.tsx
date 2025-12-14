@@ -8,7 +8,7 @@ export default function NavButtons({ active, scrollTo, sectionCount }: { active:
                 aria-label={`Go to section ${i + 1}`}
                 className={`w-3 h-3 rounded-full ring-2 ring-white transition-transform ${
                     active === i ? "scale-125 bg-white" : "bg-white/40"
-                }`} // Highlight the active section
+                }`}
                 />
             ))}
         </nav>

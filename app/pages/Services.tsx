@@ -1,12 +1,10 @@
 import React, { forwardRef } from "react";
 
-const ServicesSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark }, ref) => (
+const ServicesSection = forwardRef<HTMLDivElement, {  }>((_, ref) => (
   <section
     id="services-section"
     ref={ref}
-    className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
-      isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-    }`}
+    className={`h-screen snap-start flex items-center justify-center text-4xl font-semibold`}
   >
     <div className="text-center px-6">
       <h1 className="text-5xl md:text-6xl mb-4">Services</h1>
