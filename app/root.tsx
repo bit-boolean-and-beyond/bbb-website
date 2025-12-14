@@ -132,8 +132,8 @@ export default function App() {
 
       <NavButtons active={active} scrollTo={scrollTo} sectionCount={sectionRefs.current.length} />
 
-      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }}  />
-      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }}  />
+      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }} />
+      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }} />
       <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} />
     </main>
   );
