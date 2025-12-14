@@ -11,7 +11,6 @@ const ServicesSection = forwardRef<HTMLDivElement, {  }>(({  }, ref) => (
       <p className="max-w-xl mx-auto opacity-90">
         Explore our services here. Use the side nav or scroll to snap between sections.
       </p>
-      
     </div>
   </section>
 ));
