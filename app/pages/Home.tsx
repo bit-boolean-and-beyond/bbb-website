@@ -20,12 +20,10 @@ const HomeSection = forwardRef<HTMLDivElement, {}>(({}, ref) => {
   return (
     <section
       id="home-section"
-      // ref={ref}
-
+      ref={ref}
       className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold`}
     >
       <div className="text-center px-6">
-        {/* Top section */}
         <div>
           <Header />
           <h3 className="md:text-3xl mb-6">

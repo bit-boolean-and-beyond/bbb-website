@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
+    <header className="w-full shadow-md fixed top-0 left-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold text-white">
@@ -10,7 +10,7 @@ const Header = () => {
         {/* Navigation Links */}
         <nav className="hidden md:flex space-x-6">
           <a
-            href="#about-section"
+            href="#about"
             className="text-white hover:text-cyan-500"          >
             About
           </a>
@@ -18,11 +18,6 @@ const Header = () => {
             href="#services-section"
             className="text-white hover:text-cyan-500"          >
             Services
-          </a>
-          <a
-            href="#contact-section"
-            className="text-white hover:text-cyan-500"          >
-            Contact
           </a>
         </nav>
 

@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-const ServicesSection = forwardRef<HTMLDivElement, {  }>(({  }, ref) => (
+const ServicesSection = forwardRef<HTMLDivElement, {  }>((_, ref) => (
   <section
     id="services-section"
     ref={ref}
