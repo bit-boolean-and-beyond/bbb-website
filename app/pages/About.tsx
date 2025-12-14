@@ -1,30 +1,65 @@
 import React, { forwardRef } from "react";
 
-const AboutSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark }, ref) => (
-  <section
-    id="about-section"
-    ref={ref}
-    className={`min-h-screen snap-start flex flex-col items-center justify-center text-4xl font-semibold ${
-      isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-    }`}
-  >
-    <div className="w-full text-center px-6">
-      <h1 className="text-5xl md:text-6xl mb-4">About Us</h1>
-      <p className="w-full text-lg md:text-xl mx-auto opacity-90">
-        Bit Boolean and Beyond Consulting was formed in 2025 in the DC area by software engineering power couple Andrew Riffle and Tiffany Messer. Our mission is to provide affordable business and technical consulting services to small and mid sized businesses. With over 20 years of combined experience, we are dedicated to solving your technical problems so you can focus on what your business does best.
+const AboutSection = forwardRef<HTMLDivElement>((_, ref) => (
+  <div ref={ref} className="w-full bg-gray-50 py-16 px-6">
+    <div className="max-w-7xl mx-auto text-center">
+      {/* Section Title */}
+      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
+        About
+      </h1>
+      {/* Description */}
+      <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+        At Bit Boolean and Beyond, we are dedicated to driving measurable value
+        for businesses by delivering bespoke solutions tailored to your unique
+        challenges. Our mission is to empower startups and small businesses to
+        thrive in competitive markets by leveraging cutting-edge technology and
+        innovative strategies.
+      </p>
+      <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mt-4">
+        <strong>What We Do:</strong> We provide end-to-end full-stack solutions
+        that bring your vision to life. From creating intuitive front-end user
+        experiences to building scalable and secure back-end systems, we design
+        and implement the complete technology ecosystem your business needs to
+        succeed.
       </p>
     </div>
-    <div className="grid grid-cols-2 gap-4 mt-8">
-      <div className="text-center text-sm md:text-base">
-        <img src="/app/assets/drew.jpeg" alt="Drew Riffle photo" className="mx-auto mb-2" />
-        <p>Drew is a lifelong software engineer and tech tinkerer who has worked with numerous startups, government agencies and big corporations.  He is a jack of all trades with deep experience in software development, cloud infrastructure and data engineering.</p>
+
+    {/* Team Section */}
+    <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {/* Team Member 1 */}
+      <div className="flex flex-col items-center text-center">
+        <img
+          src="/app/assets/drew.jpeg"
+          alt="Drew Riffle"
+          className="w-40 h-40 rounded-full shadow-lg mb-4"
+        />
+        <h3 className="text-xl font-semibold text-gray-800">Drew Riffle</h3>
+        <p className="text-gray-600 mt-2">
+          Drew is a lifelong software engineer and tech enthusiast who has
+          collaborated with startups, government agencies, and large
+          enterprises. With expertise spanning software development, cloud
+          infrastructure, and data engineering, Drew is a versatile problem
+          solver dedicated to delivering impactful solutions.
+        </p>
       </div>
-      <div className="text-center">
-        <img src="/app/assets/tiffany.jpeg" alt="Tiffany Messer photo" className="mx-auto mb-2" />
-        <p>Photo 2 Description</p>
+
+      {/* Team Member 2 */}
+      <div className="flex flex-col items-center text-center">
+        <img
+          src="/app/assets/tiff.jpg"
+          alt="Tiffany Messer"
+          className="w-40 h-40 rounded-full shadow-lg mb-4"
+        />
+        <h3 className="text-xl font-semibold text-gray-800">Tiffany Messer</h3>
+        <p className="text-gray-600 mt-2">
+          Tiffany is a seasoned software engineer with a passion for building
+          scalable systems and empowering businesses through technology. Her
+          expertise in project management and technical consulting ensures that
+          every solution is aligned with your business goals.
+        </p>
       </div>
     </div>
-  </section>
+  </div>
 ));
 
 export default AboutSection;

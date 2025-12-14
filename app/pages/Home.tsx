@@ -1,6 +1,7 @@
 import React, { forwardRef, useState } from "react";
+import Header from "./Header";
 
-const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark }, ref) => {
+const HomeSection = forwardRef<HTMLDivElement, {  }>(({  }, ref) => {
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
   const handleTouch = (index: number) => {
@@ -21,14 +22,12 @@ const HomeSection = forwardRef<HTMLDivElement, { isDark: boolean }>(({ isDark },
       id="home-section"
       // ref={ref}
       
-      className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold ${
-        isDark ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      }`}
+      className={`min-h-screen snap-start flex items-center justify-center text-4xl font-semibold`}
     >
       <div className="text-center px-6">
         {/* Top section */}
         <div>
-          <h1 className="md:text-6xl mb-4">Bit Boolean & Beyond</h1>
+          <Header />
           <h3 className="md:text-3xl mb-6">Bespoke tech solutions for your business</h3>
         </div>
         <p className="text-xl">We help everyone from early stage startups to enterprises to cost effectively streamline their software delivery and cloud operations.</p>

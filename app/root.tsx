@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import "./app.css";
 import type { Route } from "./+types/root";
 
-import DarkModeToggle from "./components/DarkModeToggle";
 import NavButtons from "./components/NavButtons";
 import HomeSection from "./pages/Home";
 import AboutSection from "./pages/About";
@@ -50,9 +49,6 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<HTMLDivElement[]>(new Array(3));
   const [active, setActive] = useState(0);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem("isDarkMode") === "true"; // allows saving preference
-  });
 
   // set active section based on which has the most visibility in viewport
   useEffect(() => {
@@ -133,13 +129,12 @@ export default function App() {
       className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth" // Tailwind classes for styling
       aria-label="Scrollable sections container"
     >
-      <DarkModeToggle isDarkMode={isDarkMode} onThemeChange={setIsDarkMode} />
 
       <NavButtons active={active} scrollTo={scrollTo} sectionCount={sectionRefs.current.length} />
 
-      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }} isDark={isDarkMode} />
-      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }} isDark={isDarkMode} />
-      <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} isDark={isDarkMode} />
+      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }}  />
+      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }}  />
+      <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} />
     </main>
   );
 }
