@@ -3,7 +3,7 @@ const Header = () => {
     <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold text-gray-800">
+        <div className="text-2xl font-bold text-white">
           <a href="#home-section">BBB</a>
         </div>
 
@@ -11,20 +11,17 @@ const Header = () => {
         <nav className="hidden md:flex space-x-6">
           <a
             href="#about-section"
-            className="text-gray-600 hover:text-gray-900"
-          >
+            className="text-white hover:text-cyan-500"          >
             About
           </a>
           <a
             href="#services-section"
-            className="text-gray-600 hover:text-gray-900"
-          >
+            className="text-white hover:text-cyan-500"          >
             Services
           </a>
           <a
             href="#contact-section"
-            className="text-gray-600 hover:text-gray-900"
-          >
+            className="text-white hover:text-cyan-500"          >
             Contact
           </a>
         </nav>

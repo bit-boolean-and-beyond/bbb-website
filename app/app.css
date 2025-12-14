@@ -7,9 +7,47 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-black text-white;
+  font-family: "Geo", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* Matte black background for divs */
+.matte-black {
+  background-color: #1a1a1a; /* Matte black */
+  color: white; /* Ensure text is visible */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  padding: 16px; /* Optional: Add padding */
+}
+
+header {
+  background-image: url('./assets/pexels-pixabay-260286.jpg'); /* Replace with the actual image URL */
+  background-size: cover; /* Ensures the image covers the entire header */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 150px; /* Set the height of the header */
+  color: #FFFFFF;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.about-page .matte-black {
+  background-color: #2d2d2d;
+}
+
+/* Geo font styles */
+.geo-regular {
+  font-family: "Geo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.geo-regular-italic {
+  font-family: "Geo", sans-serif;
+  font-weight: 400;
+  font-style: italic;
 }
