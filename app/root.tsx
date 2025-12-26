@@ -13,9 +13,10 @@ import NavButtons from "./components/NavButtons";
 import HomeSection from "./pages/Home";
 import AboutSection from "./pages/About";
 import ServicesSection from "./pages/Services";
+import ContactSection from "./pages/Contact";
 import Header from "./pages/Header";
 
-const SECTION_COUNT = 3;
+const SECTION_COUNT = 4;
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -165,6 +166,12 @@ export default function App() {
           isActive={active === 2}
           ref={(el) => {
             sectionRefs.current[2] = el;
+          }}
+        />
+        <ContactSection
+          isActive={active === 3}
+          ref={(el) => {
+            sectionRefs.current[3] = el;
           }}
         />
       </main>
