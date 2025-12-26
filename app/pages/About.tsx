@@ -1,65 +1,82 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
+import drewImage from "../assets/drew.jpeg";
+import tiffImage from "../assets/tiff.jpg";
 
-const AboutSection = forwardRef<HTMLDivElement>((_, ref) => (
-  <div ref={ref} className="w-full bg-gray-50 py-16 px-6" id="about" >
-    <div className="max-w-7xl mx-auto text-center">
-      {/* Section Title */}
-      <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
-        About
-      </h1>
-      {/* Description */}
-      <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-        At Bit Boolean and Beyond, we are dedicated to driving measurable value
-        for businesses by delivering bespoke solutions tailored to your unique
-        challenges. Our mission is to empower startups and small businesses to
-        thrive in competitive markets by leveraging cutting-edge technology and
-        innovative strategies.
-      </p>
-      <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mt-4">
-        <strong>What We Do:</strong> We provide end-to-end full-stack solutions
-        that bring your vision to life. From creating intuitive front-end user
-        experiences to building scalable and secure back-end systems, we design
-        and implement the complete technology ecosystem your business needs to
-        succeed.
-      </p>
-    </div>
+type AboutSectionProps = {
+  isActive: boolean;
+};
 
-    {/* Team Section */}
-    <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      {/* Team Member 1 */}
-      <div className="flex flex-col items-center text-center">
-        <img
-          src="/app/assets/drew.jpeg"
-          alt="Drew Riffle"
-          className="w-40 h-40 rounded-full shadow-lg mb-4"
-        />
-        <h3 className="text-xl font-semibold text-gray-800">Drew Riffle</h3>
-        <p className="text-gray-600 mt-2">
-          Drew is a lifelong software engineer and tech enthusiast who has
-          collaborated with startups, government agencies, and large
-          enterprises. With expertise spanning software development, cloud
-          infrastructure, and data engineering, Drew is a versatile problem
-          solver dedicated to delivering impactful solutions.
-        </p>
-      </div>
+const AboutSection = forwardRef<HTMLDivElement, AboutSectionProps>(
+  ({ isActive }, ref) => {
+    const transitionTiming = "duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+    const motionState = isActive
+      ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+      : "opacity-0 translate-y-8 scale-[0.96] pointer-events-none";
 
-      {/* Team Member 2 */}
-      <div className="flex flex-col items-center text-center">
-        <img
-          src="/app/assets/tiff.jpg"
-          alt="Tiffany Messer"
-          className="w-40 h-40 rounded-full shadow-lg mb-4"
-        />
-        <h3 className="text-xl font-semibold text-gray-800">Tiffany Messer</h3>
-        <p className="text-gray-600 mt-2">
-          Tiffany is a seasoned software engineer with a passion for building
-          scalable systems and empowering businesses through technology. Her
-          expertise in project management and technical consulting ensures that
-          every solution is aligned with your business goals.
-        </p>
-      </div>
-    </div>
-  </div>
-));
+    return (
+      <section
+        id="about-section"
+        ref={ref}
+        aria-hidden={!isActive}
+        className={`relative min-h-screen snap-start px-6 py-24 transition-all ${transitionTiming} ${motionState}`}
+      >
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-12 rounded-[32px] border border-white/10 bg-white/5 p-10 text-center shadow-[0_30px_80px_rgba(2,6,23,0.65)] backdrop-blur">
+          <div className="space-y-6">
+            <h1 className="text-4xl font-semibold text-white md:text-5xl">About</h1>
+            <p className="text-lg leading-relaxed text-white/80 md:text-xl">
+              At Bit Boolean and Beyond, we are dedicated to driving measurable value
+              for businesses by delivering bespoke solutions tailored to your unique
+              challenges. Our mission is to empower startups and small businesses to
+              thrive in competitive markets by leveraging cutting-edge technology and
+              innovative strategies.
+            </p>
+            <p className="text-lg leading-relaxed text-white/80 md:text-xl">
+              <strong>What We Do:</strong> We provide end-to-end full-stack solutions
+              that bring your vision to life. From creating intuitive front-end user
+              experiences to building scalable and secure back-end systems, we design
+              and implement the complete technology ecosystem your business needs to
+              succeed.
+            </p>
+          </div>
+
+          <div className="grid gap-8 text-left md:grid-cols-2">
+            <article className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center shadow-inner shadow-white/5">
+              <img
+                src={drewImage}
+                alt="Drew Riffle"
+                loading="lazy"
+                className="h-32 w-32 rounded-full border border-white/20 object-cover"
+              />
+              <h3 className="text-xl font-semibold text-white">Drew Riffle</h3>
+              <p className="text-sm text-white/70">
+                Drew is a lifelong software engineer and tech enthusiast who has
+                collaborated with startups, government agencies, and large
+                enterprises. With expertise spanning software development, cloud
+                infrastructure, and data engineering, Drew is a versatile problem
+                solver dedicated to delivering impactful solutions.
+              </p>
+            </article>
+
+            <article className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center shadow-inner shadow-white/5">
+              <img
+                src={tiffImage}
+                alt="Tiffany Messer"
+                loading="lazy"
+                className="h-32 w-32 rounded-full border border-white/20 object-cover"
+              />
+              <h3 className="text-xl font-semibold text-white">Tiffany Messer</h3>
+              <p className="text-sm text-white/70">
+                Tiffany is a seasoned software engineer with a passion for building
+                scalable systems and empowering businesses through technology. Her
+                expertise in project management and technical consulting ensures that
+                every solution is aligned with your business goals.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    );
+  }
+);
 
 export default AboutSection;

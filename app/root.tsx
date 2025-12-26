@@ -13,6 +13,10 @@ import NavButtons from "./components/NavButtons";
 import HomeSection from "./pages/Home";
 import AboutSection from "./pages/About";
 import ServicesSection from "./pages/Services";
+import ContactSection from "./pages/Contact";
+import Header from "./pages/Header";
+
+const SECTION_COUNT = 4;
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +28,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap",
   },
 ];
 
@@ -47,45 +55,54 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const sectionRefs = useRef<HTMLDivElement[]>(new Array(3));
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>(
+    Array(SECTION_COUNT).fill(null)
+  );
   const [active, setActive] = useState(0);
 
-  // set active section based on which has the most visibility in viewport
+  // set active section using intersection observer for reliable visibility tracking
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
 
-    const setActiveState = () => {
-      const viewportHeight = window.innerHeight;
-      let maxOccupancy = 0;
-      let activeSection = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const mostVisible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-      sectionRefs.current.forEach((section, index) => {
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-          const occupancy = Math.max(0, visibleHeight) / viewportHeight;
+        if (!mostVisible) return;
 
-          if (occupancy > maxOccupancy) {
-            maxOccupancy = occupancy;
-            activeSection = index;
-          }
+        const index = sectionRefs.current.indexOf(
+          mostVisible.target as HTMLDivElement
+        );
+
+        if (index !== -1) {
+          setActive(index);
         }
-      });
+      },
+      {
+        root,
+        threshold: [0.2, 0.4, 0.6, 0.8, 1],
+      }
+    );
 
-            setActive(activeSection);
+    const observeSections = () => {
+      sectionRefs.current.forEach((section) => {
+        if (section) observer.observe(section);
+      });
     };
 
-    root.addEventListener("scroll", setActiveState);
-    window.addEventListener("resize", setActiveState);
+    let rafId: number | null = null;
+    if (sectionRefs.current.every((section) => !section)) {
+      rafId = requestAnimationFrame(observeSections);
+    } else {
+      observeSections();
+    }
 
-    // Initial calculation
-    setActiveState();
-
-    // Cleanup
     return () => {
-      root.removeEventListener("scroll", setActiveState);
-      window.removeEventListener("resize", setActiveState);
+      if (rafId) cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, []);
 
@@ -124,18 +141,41 @@ export default function App() {
 
   // Render the main content
   return (
-    <main
-      ref={containerRef} // Attach the ref to the scrollable container
-      className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth" // Tailwind classes for styling
-      aria-label="Scrollable sections container"
-    >
+    <>
+      <Header />
+      <main
+        ref={containerRef} // Attach the ref to the scrollable container
+        className="relative h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth text-slate-100" // Tailwind classes for styling
+        aria-label="Scrollable sections container"
+      >
+        <NavButtons active={active} scrollTo={scrollTo} sectionCount={SECTION_COUNT} />
 
-      <NavButtons active={active} scrollTo={scrollTo} sectionCount={sectionRefs.current.length} />
-
-      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }} />
-      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }} />
-      <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} />
-    </main>
+        <HomeSection
+          isActive={active === 0}
+          ref={(el) => {
+            sectionRefs.current[0] = el;
+          }}
+        />
+        <AboutSection
+          isActive={active === 1}
+          ref={(el) => {
+            sectionRefs.current[1] = el;
+          }}
+        />
+        <ServicesSection
+          isActive={active === 2}
+          ref={(el) => {
+            sectionRefs.current[2] = el;
+          }}
+        />
+        <ContactSection
+          isActive={active === 3}
+          ref={(el) => {
+            sectionRefs.current[3] = el;
+          }}
+        />
+      </main>
+    </>
   );
 }
 

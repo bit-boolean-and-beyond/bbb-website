@@ -1,53 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  color-scheme: dark;
 }
 
 html,
 body {
-  @apply bg-black text-white;
-  font-family: "Geo", sans-serif;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-[#020617] text-slate-100;
+  font-family: var(--font-sans);
+  min-height: 100%;
 }
 
-/* Matte black background for divs */
-.matte-black {
-  background-color: #1a1a1a; /* Matte black */
-  color: white; /* Ensure text is visible */
-  border-radius: 8px; /* Optional: Add rounded corners */
-  padding: 16px; /* Optional: Add padding */
+body {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(15, 118, 110, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.25), transparent 50%),
+    linear-gradient(180deg, #020617 0%, #020617 35%, #01030a 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
-header {
-  background-image: url('./assets/pexels-pixabay-260286.jpg'); /* Replace with the actual image URL */
-  background-size: cover; /* Ensures the image covers the entire header */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  height: 150px; /* Set the height of the header */
-  color: #FFFFFF;
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-}
-
-.about-page .matte-black {
-  background-color: #2d2d2d;
-}
-
-/* Geo font styles */
-.geo-regular {
-  font-family: "Geo", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.geo-regular-italic {
-  font-family: "Geo", sans-serif;
-  font-weight: 400;
-  font-style: italic;
+main {
+  position: relative;
+  isolation: isolate;
 }
