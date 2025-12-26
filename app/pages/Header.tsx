@@ -1,4 +1,5 @@
 const navLinks = [
+  { href: "#home-section", label: "Home" },
   { href: "#about-section", label: "About" },
   { href: "#services-section", label: "Services" },
   { href: "#contact-section", label: "Contact" },
@@ -9,7 +10,7 @@ const Header = () => {
     <header className="fixed left-1/2 top-6 z-40 w-full max-w-6xl -translate-x-1/2 px-4">
       <div className="flex items-center justify-between rounded-full border border-white/15 bg-white/5 px-6 py-3 shadow-[0_20px_60px_rgba(2,6,23,0.45)] backdrop-blur-md">
         <div className="text-lg font-semibold uppercase tracking-[0.3em] text-white">
-          <a href="#home-section">BBB</a>
+          <a href="#home-section">Bit Boolean and Beyond Consulting</a>
         </div>
         <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((item) => (

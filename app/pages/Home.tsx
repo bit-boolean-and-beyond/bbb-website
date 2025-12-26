@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import Header from "./Header";
 
 type HomeSectionProps = {
   isActive: boolean;
@@ -39,27 +38,28 @@ const offerings = [
 ] as const;
 
 const HomeSection = forwardRef<HTMLDivElement, HomeSectionProps>(({ isActive }, ref) => {
+  const transitionTiming = "duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
   const motionState = isActive
-    ? "opacity-100 translate-y-0 scale-100"
-    : "opacity-30 translate-y-6 scale-[0.99]";
+    ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+    : "opacity-0 translate-y-8 scale-[0.96] pointer-events-none";
 
   return (
     <section
       id="home-section"
       ref={ref}
-      className={`relative min-h-screen snap-start px-6 py-24 transition-all duration-700 ease-out ${motionState}`}
+      aria-hidden={!isActive}
+      className={`relative min-h-screen snap-start px-6 py-24 transition-all ${transitionTiming} ${motionState}`}
     >
-      <Header />
       <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center gap-10 pt-32 text-center">
         <div className="space-y-6">
           <h3 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
             <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent">
-              Bespoke tech solutions for your business
+              Bespoke Tech Solutions For Your Business
             </span>
           </h3>
           <p className="text-lg text-white/80 md:text-xl">
             We help everyone from early stage startups to enterprises to cost
-            effectively streamline their software delivery and cloud operations.
+            effectively build and/or streamline their software delivery and cloud operations.
           </p>
         </div>
 

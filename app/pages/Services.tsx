@@ -6,15 +6,17 @@ type ServicesSectionProps = {
 
 const ServicesSection = forwardRef<HTMLDivElement, ServicesSectionProps>(
   ({ isActive }, ref) => {
+    const transitionTiming = "duration-[3000ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
     const motionState = isActive
-      ? "opacity-100 translate-y-0 scale-100"
-      : "opacity-30 translate-y-6 scale-[0.99]";
+      ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+      : "opacity-0 translate-y-8 scale-[0.96] pointer-events-none";
 
     return (
       <section
         id="services-section"
         ref={ref}
-        className={`relative min-h-screen snap-start px-6 py-24 transition-all duration-700 ease-out ${motionState}`}
+        aria-hidden={!isActive}
+        className={`relative min-h-screen snap-start px-6 py-24 transition-all ${transitionTiming} ${motionState}`}
       >
         <div className="mx-auto flex h-full w-full max-w-4xl flex-col items-center justify-center gap-8 rounded-[32px] border border-white/10 bg-white/5 p-10 text-center shadow-[0_30px_80px_rgba(2,6,23,0.65)] backdrop-blur">
           <div className="space-y-4">
