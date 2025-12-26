@@ -14,6 +14,8 @@ import HomeSection from "./pages/Home";
 import AboutSection from "./pages/About";
 import ServicesSection from "./pages/Services";
 
+const SECTION_COUNT = 3;
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -24,6 +26,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap",
   },
 ];
 
@@ -47,7 +53,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const sectionRefs = useRef<HTMLDivElement[]>(new Array(3));
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>(
+    Array(SECTION_COUNT).fill(null)
+  );
   const [active, setActive] = useState(0);
 
   // set active section based on which has the most visibility in viewport
@@ -73,7 +81,7 @@ export default function App() {
         }
       });
 
-            setActive(activeSection);
+      setActive(activeSection);
     };
 
     root.addEventListener("scroll", setActiveState);
@@ -126,15 +134,30 @@ export default function App() {
   return (
     <main
       ref={containerRef} // Attach the ref to the scrollable container
-      className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth" // Tailwind classes for styling
+      className="relative h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth text-slate-100" // Tailwind classes for styling
       aria-label="Scrollable sections container"
     >
 
-      <NavButtons active={active} scrollTo={scrollTo} sectionCount={sectionRefs.current.length} />
+      <NavButtons active={active} scrollTo={scrollTo} sectionCount={SECTION_COUNT} />
 
-      <HomeSection ref={(el) => { if (el) sectionRefs.current[0] = el }} />
-      <AboutSection ref={(el) => { if (el) sectionRefs.current[1] = el }} />
-      <ServicesSection ref={(el) => { if (el) sectionRefs.current[2] = el }} />
+      <HomeSection
+        isActive={active === 0}
+        ref={(el) => {
+          sectionRefs.current[0] = el;
+        }}
+      />
+      <AboutSection
+        isActive={active === 1}
+        ref={(el) => {
+          sectionRefs.current[1] = el;
+        }}
+      />
+      <ServicesSection
+        isActive={active === 2}
+        ref={(el) => {
+          sectionRefs.current[2] = el;
+        }}
+      />
     </main>
   );
 }
