@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 const AboutSection = forwardRef<HTMLDivElement>((_, ref) => (
-  <div ref={ref} className="w-full bg-gray-50 py-16 px-6">
+  <div id="about-section" ref={ref} className="w-full bg-gray-50 py-16 px-6">
     <div className="max-w-7xl mx-auto text-center">
       {/* Section Title */}
       <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
