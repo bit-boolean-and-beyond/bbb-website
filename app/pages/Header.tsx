@@ -40,7 +40,9 @@ const Header = () => {
       <div className="flex items-center justify-between gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 shadow-[0_20px_60px_rgba(2,6,23,0.45)] backdrop-blur-md">
         <div className="flex-1 min-w-0 text-center text-sm font-semibold uppercase tracking-[0.2em] leading-tight text-white md:text-lg md:text-left md:tracking-[0.3em]">
           <a href="#home-section" className="block">
-            Bit Boolean and Beyond Consulting
+            <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent">
+              Bit Boolean and Beyond Consulting
+            </span>
           </a>
         </div>
         <nav className="hidden flex-shrink-0 items-center gap-8 md:flex">
