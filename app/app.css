@@ -7,6 +7,7 @@
 
 :root {
   color-scheme: dark;
+  --header-offset: clamp(1vh, 5vh, 30vh);
 }
 
 html,
@@ -28,4 +29,9 @@ body {
 main {
   position: relative;
   isolation: isolate;
+  scroll-padding-top: var(--header-offset);
+}
+
+main > section {
+  scroll-margin-top: var(--header-offset);
 }

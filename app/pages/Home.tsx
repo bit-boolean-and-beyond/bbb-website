@@ -53,9 +53,7 @@ const HomeSection = forwardRef<HTMLDivElement, HomeSectionProps>(({ isActive }, 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center justify-center gap-10 pt-32 text-center">
         <div className="space-y-6">
           <h3 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
-            <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent">
               Bespoke Tech Solutions For Your Business
-            </span>
           </h3>
           <p className="text-lg text-white/80 md:text-xl">
             We help everyone from early stage startups to enterprises to cost

@@ -47,7 +47,7 @@ const ContactSection = forwardRef<HTMLDivElement, ContactSectionProps>(
         aria-hidden={!isActive}
         className={`relative min-h-screen snap-start px-6 py-24 transition-all ${transitionTiming} ${motionState}`}
       >
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 rounded-[32px] border border-white/10 bg-white/5 p-10 text-left shadow-[0_30px_80px_rgba(2,6,23,0.65)] backdrop-blur">
+        <div className="mx-auto flex w-full max-w-full flex-col gap-10 rounded-[32px] border border-white/10 bg-white/5 px-5 py-10 text-left shadow-[0_30px_80px_rgba(2,6,23,0.65)] backdrop-blur">
           <header className="space-y-4 text-center">
             <p className="text-sm uppercase tracking-[0.4em] text-cyan-200/80">Let's Build Together</p>
             <h1 className="text-4xl font-semibold text-white md:text-5xl">Contact</h1>
@@ -57,8 +57,8 @@ const ContactSection = forwardRef<HTMLDivElement, ContactSectionProps>(
             </p>
           </header>
 
-          <div className="grid gap-8 md:grid-cols-2">
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-inner shadow-white/5">
+          <div className="grid w-full gap-8 md:grid-cols-2">
+            <section className="w-full min-w-0 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-inner shadow-white/5">
               <h2 className="text-2xl font-semibold text-white">Reach Us</h2>
               <div className="mt-4 space-y-4">
                 {contactChannels.map((channel) => (
@@ -67,7 +67,7 @@ const ContactSection = forwardRef<HTMLDivElement, ContactSectionProps>(
                     {channel.href ? (
                       <a
                         href={channel.href}
-                        className="text-lg text-cyan-200 transition-colors duration-200 hover:text-white"
+                        className="break-words text-lg text-cyan-200 transition-colors duration-200 hover:text-white"
                       >
                         {channel.value}
                       </a>
@@ -82,7 +82,7 @@ const ContactSection = forwardRef<HTMLDivElement, ContactSectionProps>(
                 className="mt-6 inline-flex items-center justify-center rounded-full border border-cyan-200/60 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-cyan-100 transition-colors duration-200 hover:border-white hover:text-white"
                 onClick={() => {
                   if (typeof window !== "undefined") {
-                    window.location.href = "mailto:hello@bitbooleanandbeyond.com";
+                    window.location.href = "mailto:consultations@bitbooleanandbeyond.com";
                   }
                 }}
               >
@@ -90,7 +90,7 @@ const ContactSection = forwardRef<HTMLDivElement, ContactSectionProps>(
               </button>
             </section>
 
-            <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-6">
+            <section className="w-full min-w-0 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-6">
               <h2 className="text-2xl font-semibold text-white">Quick Notes</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-white/70">
                 {quickNotes.map((note) => (
