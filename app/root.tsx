@@ -83,7 +83,7 @@ export default function App() {
       },
       {
         root,
-        threshold: [0.2, 0.4, 0.6, 0.8, 1],
+        threshold: [0, 0.15, 0.35, 0.6, 0.85, 1],
       }
     );
 
