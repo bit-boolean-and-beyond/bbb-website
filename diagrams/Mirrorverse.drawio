@@ -1,0 +1,33 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.4">
+  <diagram name="Page-1" id="BQAFRROrTgOmmT6eGCLk">
+    <mxGraphModel dx="1018" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-6" edge="1" parent="1" source="JNQJ4WdPuOidbl-SnVbR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-7" edge="1" parent="1" source="JNQJ4WdPuOidbl-SnVbR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="JNQJ4WdPuOidbl-SnVbR-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Mobile App&amp;nbsp;" vertex="1">
+          <mxGeometry height="90" width="90" x="110" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-8" edge="1" parent="1" source="JNQJ4WdPuOidbl-SnVbR-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="JNQJ4WdPuOidbl-SnVbR-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-3" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Service Layer&amp;nbsp;" vertex="1">
+          <mxGeometry height="90" width="90" x="110" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-4" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Mobile App&amp;nbsp;" vertex="1">
+          <mxGeometry height="80" width="80" x="270" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="JNQJ4WdPuOidbl-SnVbR-5" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Data base&amp;nbsp;" vertex="1">
+          <mxGeometry height="90" width="90" x="110" y="370" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
